@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing School LIVE 2026 — Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1E2B5C;
+    --purple: #7B3FA0;
+    --pink: #E91E8C;
+    --hot-pink: #FF1493;
+    --light-pink: #FFF0F7;
+    --white: #FFFFFF;
+    --light-gray: #F8F8FA;
+    --text-dark: #1A1A2E;
+    --text-muted: #6B7280;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--light-gray);
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--white);
+    color: var(--navy);
+    text-align: center;
+    padding: 3rem 1.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%; left: -20%;
+    width: 140%; height: 180%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(233,30,140,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--navy), var(--purple));
+    color: var(--white);
+    border-radius: 50px;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+  .hero h1.logo-text {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, var(--navy) 0%, var(--purple) 50%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero h1 .live-box {
+    display: inline-block;
+    border: 3px solid var(--pink);
+    border-radius: 8px;
+    padding: 0 0.15em;
+    margin-left: 0.1em;
+    -webkit-text-fill-color: var(--pink);
+  }
+  .hero-tagline {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-top: 0.6rem;
+    position: relative;
+  }
+  .hero-details {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    position: relative;
+    flex-wrap: wrap;
+  }
+  .hero-details span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* ── DAY TABS ── */
+  .tabs-container {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .tabs {
+    display: flex;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .tab {
+    flex: 1;
+    padding: 1rem 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    transition: all 0.25s ease;
+  }
+  .tab:hover { color: var(--purple); }
+  .tab.active {
+    color: var(--pink);
+    border-bottom-color: var(--pink);
+  }
+  .tab-day {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 600;
+    opacity: 0.7;
+    margin-bottom: 2px;
+  }
+
+  /* ── CONTENT PANELS ── */
+  .day-panel {
+    display: none;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+  }
+  .day-panel.active { display: block; }
+
+  .day-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--navy), var(--purple));
+    color: var(--white);
+  }
+  .day-header h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .day-header .theme {
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.85;
+    margin-top: 0.4rem;
+  }
+
+  /* ── SESSION CARDS ── */
+  .session {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    border-left: 4px solid var(--purple);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .session:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .session.keynote { border-left-color: var(--pink); }
+  .session.workshop { border-left-color: var(--purple); }
+  .session.panel { border-left-color: #F59E0B; }
+  .session.experience { border-left-color: #10B981; }
+  .session.break-card {
+    background: var(--light-pink);
+    border-left-color: transparent;
+    text-align: center;
+    padding: 0.8rem;
+  }
+  .session.vip {
+    border-left-color: #F59E0B;
+    background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
+  }
+
+  .session-type {
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--pink);
+    margin-bottom: 0.3rem;
+  }
+  .session.workshop .session-type { color: var(--purple); }
+  .session.panel .session-type { color: #D97706; }
+  .session.experience .session-type { color: #059669; }
+  .session.vip .session-type { color: #B45309; }
+
+  .session-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--text-dark);
+  }
+  .session-speaker {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--purple);
+    margin-top: 0.35rem;
+  }
+  .session-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+    line-height: 1.5;
+  }
+  .break-card .session-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--pink);
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 1.8rem 0 1rem;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #E5E7EB, transparent);
+  }
+
+  /* ── SPONSORS ── */
+  .sponsors-card {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem 1.4rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #FAFAFA, #F3F0F8);
+    border: 1px solid #E5E7EB;
+    text-align: center;
+  }
+  .sponsors-card .sponsors-label {
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+  }
+  .sponsors-card .sponsor {
+    font-size: 0.8rem;
+    color: var(--text-dark);
+    margin-bottom: 0.3rem;
+    line-height: 1.5;
+  }
+  .sponsors-card .sponsor strong {
+    font-weight: 700;
+    color: var(--purple);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    background: linear-gradient(135deg, var(--navy), var(--purple));
+    color: var(--white);
+  }
+  .footer h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+  }
+  .footer p {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+  .footer a {
+    color: var(--hot-pink);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (min-width: 600px) {
+    .tab { font-size: 0.8rem; }
+    .tab-day { font-size: 0.65rem; }
+    .day-panel { padding: 2rem 2rem 4rem; }
+    .session { padding: 1.4rem 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">#MSL2026</div>
+  <h1 class="logo-text">MARKETING<br>SCHOOL <span class="live-box">LIVE</span></h1>
+  <p class="hero-tagline">The Money is in the Marketing</p>
+  <div class="hero-details">
+    <span>&#128197; April 2–4, 2026</span>
+    <span>&#128205; Atlanta, GA</span>
+    <span>&#127908; Hosted by @EpicAprille</span>
+  </div>
+</header>
+
+<!-- DAY TABS -->
+<nav class="tabs-container">
+  <div class="tabs">
+    <button class="tab active" onclick="showDay('day0', this)">
+      <span class="tab-day">Wed, April 1</span>Registration
+    </button>
+    <button class="tab" onclick="showDay('day1', this)">
+      <span class="tab-day">Thu, April 2</span>Content Camp VIP Day
+    </button>
+    <button class="tab" onclick="showDay('day2', this)">
+      <span class="tab-day">Fri, April 3</span>Create
+    </button>
+    <button class="tab" onclick="showDay('day3', this)">
+      <span class="tab-day">Sat, April 4</span>Money
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PRE-DAY: REGISTRATION — April 1        -->
+<!-- ═══════════════════════════════════════ -->
+<section id="day0" class="day-panel active">
+  <div class="day-header">
+    <h2>Pre-Registration &amp; Mixer</h2>
+    <p class="theme">Wednesday, April 1</p>
+  </div>
+
+  <div class="sponsors-card" style="margin-top: 0; margin-bottom: 1rem;">
+    <div class="sponsors-label">Powered by The School of Content Marketing</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">All Ticket Holders</div>
+    <div class="session-title">Pre-Registration</div>
+    <div class="session-desc">5:30 PM – 6:30 PM · Charleston Room 3. Check in, grab your lanyard, and get settled before the conference kicks off.</div>
+  </div>
+
+  <div class="session vip">
+    <div class="session-type">VIP Varsity, Marketing School Mastermind &amp; President's Circle</div>
+    <div class="session-title">Success Networking Mixer</div>
+    <div class="session-desc">6:00 PM – 7:00 PM · Charleston Room 3. An exclusive evening to connect before the main event.</div>
+  </div>
+
+  <div class="sponsors-card">
+    <div class="sponsors-label">&#10024; Thank You to Our Sponsors</div>
+    <div class="sponsor"><strong>Cakes Body</strong> — Keeping you covered with their OG Nipple Covers</div>
+    <div class="sponsor"><strong>The Lip Bar</strong> — Bawse Lady Matte Lipstick</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- DAY 1: CONTENT CAMP LIVE — April 2     -->
+<!-- ═══════════════════════════════════════ -->
+<section id="day1" class="day-panel">
+  <div class="day-header">
+    <h2>Content Camp VIP Day</h2>
+    <p class="theme">VIP + President's Circle Ticket Holders</p>
+  </div>
+
+  <div class="sponsors-card" style="margin-top: 0; margin-bottom: 1rem;">
+    <div class="sponsors-label">Powered by The School of Content Marketing</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Opening Session</div>
+    <div class="session-title">The Money is in the Marketing, Elevate Your Authority</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">Kick off the conference with your campaign path and get ready for the journey ahead.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Featured Speaker</div>
+    <div class="session-title">8 Figure Brands &amp; Leveraging Your Influence for Profits</div>
+    <div class="session-speaker">@ChaleneJohnson</div>
+  </div>
+
+  <div class="session workshop">
+    <div class="session-type">Live Coaching</div>
+    <div class="session-title">Campaign Q&amp;A — Close the Loops</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">Bring your questions. Get real-time coaching on your campaigns, strategy, and next moves.</div>
+  </div>
+
+  <div class="session break-card">
+    <div class="session-title">&#127860; Lunch Will Be Provided</div>
+  </div>
+
+  <div class="session break-card">
+    <div class="session-title">&#128663; Freshen Up &amp; Carpool to The Bakery</div>
+    <div class="session-desc" style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.3rem;">Grab your things, freshen up, and carpool to the next location.</div>
+  </div>
+
+  <div class="session experience">
+    <div class="session-type">Experience</div>
+    <div class="session-title">The Bakery — Your Content Experience</div>
+    <div class="session-speaker">Keynote Speaker &amp; Agency Owner Mz. Skittlez</div>
+    <div class="session-desc">638 North Highland NE, Atlanta, GA</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Exclusive Invitation</div>
+    <div class="session-title">Elevate Your Authority</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">First right of acceptance into the new Authority Level of the School of Content Marketing.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Closing Session</div>
+    <div class="session-title">The Advantage</div>
+    <div class="session-speaker">@EpicAprille</div>
+  </div>
+
+  <div class="sponsors-card">
+    <div class="sponsors-label">&#10024; Thank You to Our Sponsors</div>
+    <div class="sponsor"><strong>Cakes Body</strong> — Keeping you covered with their OG Nipple Covers</div>
+    <div class="sponsor"><strong>The Lip Bar</strong> — Bawse Lady Matte Lipstick</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- DAY 2: CREATE — April 3                -->
+<!-- ═══════════════════════════════════════ -->
+<section id="day2" class="day-panel">
+  <div class="day-header">
+    <h2>Create the Content</h2>
+    <p class="theme">Follow and Replicate the Protocol.</p>
+  </div>
+
+  <div class="sponsors-card" style="margin-top: 0; margin-bottom: 1rem;">
+    <div class="sponsors-label">Powered by The School of Content Marketing</div>
+  </div>
+
+  <div class="section-divider">Morning Block</div>
+
+  <div class="session keynote">
+    <div class="session-type">Opening Keynote</div>
+    <div class="session-title">The Elevation: Step Into Your Authority</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">Get clear on where you're going and what it's going to take.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Featured Speaker</div>
+    <div class="session-title">Million Dollar Branding and Marketing</div>
+    <div class="session-speaker">@MzSkittlez</div>
+    <div class="session-desc">Position yourself to be a richer brand.</div>
+  </div>
+
+  <div class="session workshop">
+    <div class="session-type">Q&amp;A</div>
+    <div class="session-title">Ask @MzSkittlez</div>
+    <div class="session-desc">Your chance to go deeper — bring your branding and marketing questions straight to the source.</div>
+  </div>
+
+  <div class="session panel">
+    <div class="session-type">Client Spotlight</div>
+    <div class="session-title">What's Working Now</div>
+    <div class="session-desc">Hear directly from real clients on the strategies driving results today.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Keynote</div>
+    <div class="session-title">Content That Connects, Converts, and Compounds</div>
+    <div class="session-speaker">@Brock11Johnson</div>
+    <div class="session-desc">What to do, what to avoid, and how to scale your reach.</div>
+  </div>
+
+  <div class="session workshop">
+    <div class="session-type">Q&amp;A</div>
+    <div class="session-title">Ask @Brock11Johnson</div>
+    <div class="session-desc">Pick his brain on content strategy, growth, and what's working right now.</div>
+  </div>
+
+  <div class="session workshop">
+    <div class="session-type">Workshop</div>
+    <div class="session-title">Campaign Set Up + Client Journey</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">Map out your campaign structure and the client journey from first touch to conversion.</div>
+  </div>
+
+  <div class="sponsors-card">
+    <div class="sponsors-label">&#10024; Thank You to Our Sponsors</div>
+    <div class="sponsor"><strong>Cakes Body</strong> — Keeping you covered with their OG Nipple Covers</div>
+    <div class="sponsor"><strong>The Lip Bar</strong> — Bawse Lady Matte Lipstick</div>
+  </div>
+
+  <div class="session break-card">
+    <div class="session-title">&#127860; Hall Pass &amp; VIP Varsity — Lunch on Your Own</div>
+  </div>
+
+  <div class="session break-card">
+    <div class="session-title">&#127860; Marketing School Mastermind, Event Concierge &amp; President's Circle — Lunch Provided</div>
+  </div>
+
+  <div class="section-divider">Afternoon Block</div>
+
+  <div class="session workshop">
+    <div class="session-type">Teaching Session</div>
+    <div class="session-title">Hooks + Disruptive Openings</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">Stop the scroll. Learn how to open your content in a way that demands attention.</div>
+  </div>
+
+  <div class="session workshop">
+    <div class="session-type">Client Spotlight</div>
+    <div class="session-title">Spinning Your Story into Viral Hooks</div>
+    <div class="session-speaker">Dee Taft @BreakUpBounceBackBoss on TikTok</div>
+    <div class="session-desc">How one story became a movement — and how to turn yours into content that connects.</div>
+  </div>
+
+  <div class="session experience">
+    <div class="session-type">Experiential Session</div>
+    <div class="session-title">&#9733; Batch Recording Session</div>
+    <div class="session-speaker">All Attendees + Team Support</div>
+    <div class="session-desc">Hands-on production time following the Batch 1727 Protocol. Spread out and use the entire landscape of the hotel.</div>
+  </div>
+
+  <div class="session workshop">
+    <div class="session-type">Group Debrief</div>
+    <div class="session-title">The Content Drop</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">You just mass-produced. Now let's see what you built and how it's going to drive your business forward.</div>
+  </div>
+
+  <div class="session workshop">
+    <div class="session-type">&#127891; SOCM Instructor</div>
+    <div class="session-title">From Raw to Ready</div>
+    <div class="session-speaker">Alessia Tenebruso @OneGirlTravel</div>
+    <div class="session-desc">Walk through basic edits, fun edits, and get your questions answered now that the content is created.</div>
+  </div>
+
+  <div class="session workshop">
+    <div class="session-type">&#129302; Teaching Session</div>
+    <div class="session-title">Authority-Driven Captions</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">Learn the SOCM caption framework and get access to a custom GPT resource to keep you creating long after the conference.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Closing</div>
+    <div class="session-title">That's a Wrap!</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">Wrap up everything you created today and get a sneak peek at what's coming tomorrow.</div>
+  </div>
+
+  <div class="session vip">
+    <div class="session-type">VIP Varsity, President's Circle &amp; Mastermind Only</div>
+    <div class="session-title">VIP Study Halls</div>
+    <div class="session-desc" style="margin-top: 0.5rem;">7:30 PM – 8:30 PM · Choose one:</div>
+    <div class="session-desc"><strong>Editing &amp; Captions</strong> — Alessia Tenebruso @OneGirlTravel</div>
+    <div class="session-desc"><strong>TikTok Shop: 6 Figure Success</strong> — @OfficiallyEirene</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- DAY 3: MONETIZE — April 4              -->
+<!-- ═══════════════════════════════════════ -->
+<section id="day3" class="day-panel">
+  <div class="day-header" style="background: linear-gradient(135deg, var(--purple), var(--pink));">
+    <h2>Plan to Get Paid</h2>
+    <p class="theme">Build a System for Profitability.</p>
+  </div>
+
+  <div class="sponsors-card" style="margin-top: 0; margin-bottom: 1rem;">
+    <div class="sponsors-label">Powered by The School of Content Marketing</div>
+  </div>
+
+  <div class="session vip">
+    <div class="session-type">VIP Early Session</div>
+    <div class="session-title">Expert Study Hall — Mindset + Money</div>
+    <div class="session-speaker">Darnyelle Jervey Harmon</div>
+    <div class="session-desc">7:30 AM. Exclusive early-morning session for VIP Varsity + President's Circle. Mindset, money identity, and the inner work of being worthy of the millions.</div>
+  </div>
+
+  <div class="section-divider">Morning Block</div>
+
+  <div class="session keynote">
+    <div class="session-type">Day 2 Open</div>
+    <div class="session-title">Welcome + Pitch Competition Contestant Spotlight</div>
+    <div class="session-speaker">Sid Scott, MC &amp; Success Coach, Marketing School Mastermind</div>
+    <div class="session-desc">Setting the stage for Day 2 and spotlighting today's pitch competition contestants.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Host Moment</div>
+    <div class="session-title">The CEO Conversation</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">Before the money talk, the mindset talk. How are you thinking about your business, and are you ready to make the decisions that change everything?</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Opening Keynote</div>
+    <div class="session-title">Worthy of the Millions</div>
+    <div class="session-speaker">Darnyelle Jervey Harmon, Creator of the Move to Millions Movement</div>
+    <div class="session-desc">Developing the mindset and the capacity for seven figures.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Keynote + Q&amp;A</div>
+    <div class="session-title">10x Your Sales Pipeline with Challenges</div>
+    <div class="session-speaker">Lamar Tyler, CEO of Traffic, Sales &amp; Profits</div>
+  </div>
+
+  <div class="session panel">
+    <div class="session-type">Success Panel</div>
+    <div class="session-title">The Proof Is in the People</div>
+    <div class="session-speaker">@SiobhanJMiddleton &middot; @BernettaStyle &middot; @OneGirlTravel</div>
+    <div class="session-desc">Moderated by Barbara Bonds, Emmy Award-Winning Producer &amp; Event Concierge.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Featured Session</div>
+    <div class="session-title">Your Profitable Business Model</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">The model behind million-dollar marketing — and how to make it yours.</div>
+  </div>
+
+  <div class="session break-card">
+    <div class="session-title">&#127860; Hall Pass &amp; VIP Varsity — Lunch on Your Own</div>
+  </div>
+
+  <div class="session break-card">
+    <div class="session-title">&#127860; Marketing School Mastermind, Event Concierge &amp; President's Circle — Lunch Provided</div>
+  </div>
+
+  <div class="section-divider">Afternoon Block</div>
+
+  <div class="session experience">
+    <div class="session-type">&#127942; President's Circle Pitch Competition</div>
+    <div class="session-title">Pitch Competition</div>
+    <div class="session-speaker">Paula Farmer &middot; Fareedah Shaheed &middot; Ebony Brown-Zamora &middot; Niki Moore</div>
+    <div class="session-desc">Over $10,000 in cash and prizes — including $1,000 cash and Momentum 1-on-1 coaching with @EpicAprille.</div>
+  </div>
+
+  <div class="session experience">
+    <div class="session-type">Connect the Dots</div>
+    <div class="session-title">Your Next Opportunity Is in This Room</div>
+    <div class="session-speaker">Atiya Brown, CPA &amp; SOCM Member</div>
+    <div class="session-desc">Everyone has a dot on their lanyard — now it's time to connect them. Your next opportunity could be sitting right next to you.</div>
+  </div>
+
+  <div class="session workshop">
+    <div class="session-type">Live Coaching</div>
+    <div class="session-title">Open Coaching Session</div>
+    <div class="session-speaker">@EpicAprille</div>
+    <div class="session-desc">This is your moment to close any gaps. Bring your questions, get coached, and leave with clarity.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">&#11088; Mastermind Speaker Spotlight</div>
+    <div class="session-title">Messaging, Community &amp; Profits</div>
+    <div class="session-speaker">Siobhan Middleton @SiobhanJMiddleton</div>
+    <div class="session-desc">How to build a community that buys and a message that makes them stay.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">&#11088; SOCM Speaker Spotlight</div>
+    <div class="session-title">The Authority Decision — What Made Everything Click</div>
+    <div class="session-speaker">Sid Scott @IAmSidScott</div>
+    <div class="session-desc">The moment the decision was made and everything changed. A story of authority, action, and going all in.</div>
+  </div>
+
+  <div class="session keynote">
+    <div class="session-type">Closing</div>
+    <div class="session-title">This Is Just the Beginning + MSL 2027</div>
+    <div class="session-speaker">@EpicAprille</div>
+  </div>
+
+  <div class="session vip">
+    <div class="session-type">President's Circle — Sunday, April 5</div>
+    <div class="session-title">Private Brunch with @EpicAprille</div>
+    <div class="session-desc">Noon. An intimate send-off for the President's Circle.</div>
+  </div>
+
+  <div class="sponsors-card">
+    <div class="sponsors-label">&#10024; Thank You to Our Sponsors</div>
+    <div class="sponsor"><strong>Cakes Body</strong> — Keeping you covered with their OG Nipple Covers</div>
+    <div class="sponsor"><strong>The Lip Bar</strong> — Bawse Lady Matte Lipstick</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <h3>MARKETING SCHOOL LIVE 2026</h3>
+  <p>The Money is in the Marketing</p>
+  <p style="margin-top: 0.8rem;"><a href="https://marketingschool.live" target="_blank">marketingschool.live</a></p>
+  <p style="margin-top: 0.5rem; font-size: 0.7rem; opacity: 0.5;">#MSL2026 &nbsp;|&nbsp; @EpicAprille</p>
+</footer>
+
+<script>
+function showDay(dayId, tabEl) {
+  document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(dayId).classList.add('active');
+  tabEl.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.tabs-container').offsetTop, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
