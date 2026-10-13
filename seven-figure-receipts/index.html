@@ -213,8 +213,6 @@
   /* Video slots. The frame is warm black in both themes so it reads as a screen, never a blue panel. */
   .video { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #1b1719; border-radius: 4px; overflow: hidden; }
   .video.tall { aspect-ratio: 9 / 16; }
-  .vwrap { display: flex; flex-direction: column; gap: 6px; }
-  .vlink { align-self: flex-end; font-family: var(--mono); font-size: 12px; color: var(--accent); }
   .video iframe, .video video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background: #1b1719; }
   .video.soon { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #f4eef2; text-align: center; padding: 16px; }
   .video.soon .play { width: 54px; height: 54px; border-radius: 50%; background: #e91e8c; display: grid; place-items: center; }
@@ -687,8 +685,7 @@
       return '<div class="' + cls + '"><iframe src="https://www.youtube-nocookie.com/embed/' + m[1] + '" title="' + esc(title) + '" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
     }
     if ((m = src.match(/vimeo\.com\/(?:video\/)?(\d+)/))) {
-      return '<div class="vwrap"><div class="' + cls + '"><iframe src="https://player.vimeo.com/video/' + m[1] + '" title="' + esc(title) + '" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>' +
-        '<a class="vlink" href="https://vimeo.com/' + m[1] + '" target="_blank" rel="noopener">Video not playing? Watch on Vimeo</a></div>';
+      return '<div class="' + cls + '"><iframe src="https://player.vimeo.com/video/' + m[1] + '" title="' + esc(title) + '" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
     }
     if ((m = src.match(/loom\.com\/(?:share|embed)\/([\w]+)/))) {
       return '<div class="' + cls + '"><iframe src="https://www.loom.com/embed/' + m[1] + '" title="' + esc(title) + '" allowfullscreen loading="lazy"></iframe></div>';
