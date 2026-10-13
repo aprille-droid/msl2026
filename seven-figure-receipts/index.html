@@ -5,7 +5,7 @@
 <style>
   /* Layout: one centered column of thermal-paper receipts on a School of Content Marketing ground; the plan is the final, longest receipt. */
   :root {
-    --bg: #f2f0f6;
+    --bg: #f8eef3;
     --paper: #fffefb;
     --ink: #1a1a2e;
     --muted: #5d5f70;
@@ -26,17 +26,17 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #10152d; --paper: #1b2244; --ink: #eceaf5; --muted: #a9abc4; --navy: #e4e2f6;
-      --accent: #ff6cb8; --accent-strong: #e91e8c; --purple: #c39be0; --rule: #3a4270; --chip: #262e58;
-      --on-accent: #ffffff; --shadow: rgba(0, 0, 0, 0.45);
+      --bg: #151214; --paper: #221d21; --ink: #f4eef2; --muted: #b5aab2; --navy: #f4eef2;
+      --accent: #ff6cb8; --accent-strong: #e91e8c; --purple: #d1a6ec; --rule: #45393f; --chip: #2e252c;
+      --on-accent: #ffffff; --shadow: rgba(0, 0, 0, 0.5);
       --s-need: #ff8a80; --s-work: #f5b85a; --s-done: #5fd3b2;
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #10152d; --paper: #1b2244; --ink: #eceaf5; --muted: #a9abc4; --navy: #e4e2f6;
-    --accent: #ff6cb8; --accent-strong: #e91e8c; --purple: #c39be0; --rule: #3a4270; --chip: #262e58;
-    --on-accent: #ffffff; --shadow: rgba(0, 0, 0, 0.45);
+    --bg: #151214; --paper: #221d21; --ink: #f4eef2; --muted: #b5aab2; --navy: #f4eef2;
+    --accent: #ff6cb8; --accent-strong: #e91e8c; --purple: #d1a6ec; --rule: #45393f; --chip: #2e252c;
+    --on-accent: #ffffff; --shadow: rgba(0, 0, 0, 0.5);
     --s-need: #ff8a80; --s-work: #f5b85a; --s-done: #5fd3b2;
     color-scheme: dark;
   }
@@ -207,8 +207,39 @@
   .choice.me input:checked + span { background: var(--s-need); border-color: var(--s-need); }
   .choice.working input:checked + span { background: var(--s-work); border-color: var(--s-work); }
   .choice.done input:checked + span { background: var(--s-done); border-color: var(--s-done); }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .choice input:checked + span { color: #10152d; } }
-  :root[data-theme="dark"] .choice input:checked + span { color: #10152d; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .choice input:checked + span { color: #151214; } }
+  :root[data-theme="dark"] .choice input:checked + span { color: #151214; }
+
+  /* Video slots. The frame is warm black in both themes so it reads as a screen, never a blue panel. */
+  .video { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #1b1719; border-radius: 4px; overflow: hidden; }
+  .video.tall { aspect-ratio: 9 / 16; }
+  .video iframe, .video video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background: #1b1719; }
+  .video.soon { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #f4eef2; text-align: center; padding: 16px; }
+  .video.soon .play { width: 54px; height: 54px; border-radius: 50%; background: #e91e8c; display: grid; place-items: center; }
+  .video.soon .play::after { content: ""; border-left: 16px solid #ffffff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; }
+  .video.soon .v1 { font-weight: 700; font-size: 0.95rem; }
+  .video.soon .v2 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #c9bfc6; }
+
+  /* Seven figure friends */
+  .friends { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .friend { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .friend .who { font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .friend .biz { font-size: 0.85rem; color: var(--muted); }
+  .friend .lesson { font-size: 0.92rem; font-style: italic; }
+
+  /* Next steps path */
+  .path { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; counter-reset: p; text-align: left; }
+  .path li { counter-increment: p; display: flex; flex-direction: column; gap: 4px; padding: 14px; background: var(--paper); border-radius: 4px; min-width: 0; border-top: 3px solid var(--rule); }
+  .path li.here { border-top-color: var(--s-done); }
+  .path li.next { border-top-color: var(--accent-strong); }
+  .path li::before { content: "Stop " counter(p); font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .path b { color: var(--navy); }
+  .path span { font-size: 0.88rem; color: var(--muted); }
+  .path .tag { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+  .path .here .tag { color: var(--s-done); }
+  .path .next .tag { color: var(--accent); }
+  .plan-next { text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .plan-next p { font-size: 0.92rem; max-width: 46ch; }
   .stamp {
     font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
     padding: 2px 8px; border: 1.5px solid currentColor; border-radius: 3px; white-space: nowrap;
@@ -262,15 +293,17 @@
   /* Sticky progress bar */
   .progress {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
-    background: var(--navy);
-    color: var(--bg);
+    background: var(--paper);
+    color: var(--ink);
+    border-top: 1px solid var(--rule);
+    box-shadow: 0 -4px 16px var(--shadow);
     padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
   }
   .progress-inner { max-width: 760px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .progress .count { font-family: var(--mono); font-size: 13px; }
-  .progress .track { flex: 1; height: 6px; background: rgba(127, 127, 160, 0.35); border-radius: 3px; overflow: hidden; max-width: 220px; }
+  .progress .track { flex: 1; height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; max-width: 220px; }
   .progress .fill { height: 100%; background: var(--accent-strong); width: 0; transition: width .3s; }
-  .progress a { color: var(--bg); font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+  .progress a { color: var(--accent); font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
   .copied { font-family: var(--mono); font-size: 12px; color: var(--s-done); min-height: 1em; text-align: center; }
 
   @media (max-width: 640px) {
@@ -280,6 +313,8 @@
     .form { grid-template-columns: 1fr; }
     .know { grid-template-columns: 1fr; }
     .big { grid-template-columns: 1fr; }
+    .friends { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .path { grid-template-columns: 1fr; }
     .receipt { padding: 22px 18px 26px; }
     .progress .track { display: none; }
   }
@@ -381,6 +416,15 @@
     <div class="receipts" id="receipts"></div>
   </section>
 
+  <section class="stack" aria-labelledby="friends-h">
+    <div class="sec-head">
+      <span class="eyebrow">It's not just me</span>
+      <h2 id="friends-h">Receipts from my seven figure friends</h2>
+      <p>I asked friends who've built seven figure businesses one question: what's the receipt you wish someone had shown you sooner?</p>
+    </div>
+    <div class="friends" id="friends"></div>
+  </section>
+
   <section class="stack" id="plan" aria-labelledby="plan-h">
     <div class="sec-head">
       <span class="eyebrow">Step 3</span>
@@ -395,11 +439,16 @@
     <p class="copied" id="copied" role="status"></p>
   </section>
 
-  <section class="cta" aria-labelledby="cta-h">
+  <section class="cta" id="next" aria-labelledby="cta-h">
     <span class="eyebrow">What comes next</span>
-    <h2 id="cta-h">The plan is free. Building it is the work.</h2>
-    <p>Inside the paid School of Content Marketing, we take the receipts at the top of your plan and fix them one by one: your list, your offer, your content and the systems behind them. With me, not on your own.</p>
-    <a class="btn primary" id="paid-link" href="#plan">Join the paid School</a>
+    <h2 id="cta-h">You've seen the receipts. Now find your starting line.</h2>
+    <p>Your plan shows what seven figures takes and where your business is leaking. What to work on first depends on where you're starting. The Starting Line Quiz shows you which zone you're in, and the Profitable Business Model shows you what to focus on from there.</p>
+    <ol class="path" aria-label="Your path">
+      <li class="here"><span class="tag">You are here</span><b>Seven Figure Receipts</b><span>What seven figures takes, and where you're leaking.</span></li>
+      <li class="next"><span class="tag">Next</span><b>The Starting Line Quiz</b><span>Which zone you're in right now.</span></li>
+      <li><span class="tag">Then</span><b>The Profitable Business Model</b><span>What to focus on in your zone to reach your goal.</span></li>
+    </ol>
+    <a class="btn primary quiz-link" href="#next">Take the Starting Line Quiz</a>
   </section>
 
   <p class="disclaimer">This tool shows what a seven figure year would require, using your inputs and simple assumptions. It is not a promise of income, and it is not tax, legal or financial advice. My results came from years of work and plenty of expensive mistakes, and yours will depend on your business, your effort and the market. Talk to a qualified CPA about your tax classification and how you pay yourself.</p>
@@ -416,8 +465,19 @@
 
 <script>
 (function () {
-  // Replace with the real checkout or upgrade link for the paid School of Content Marketing.
-  var CONFIG = { paidUrl: "" };
+  // Replace with the real Starting Line Quiz link.
+  var CONFIG = { quizUrl: "" };
+
+  // Video links: paste a YouTube, Vimeo or Loom link, or a direct .mp4 link. Leave "" to show "Video coming soon".
+  // Seven figure friends: fill in name, business, their one-line lesson and video link. Empty slots show as coming soon.
+  var FRIENDS = [
+    { name: "", biz: "", lesson: "", video: "" },
+    { name: "", biz: "", lesson: "", video: "" },
+    { name: "", biz: "", lesson: "", video: "" },
+    { name: "", biz: "", lesson: "", video: "" },
+    { name: "", biz: "", lesson: "", video: "" },
+    { name: "", biz: "", lesson: "", video: "" }
+  ];
 
   var GOAL = 1000000;
 
@@ -434,6 +494,7 @@
   var RECEIPTS = [
     {
       id: "shoebox", cat: "Taxes", priority: 1,
+      video: "",
       title: "The shoebox of receipts",
       story: [
         "I started the way a lot of us do. I formed an LLC online in the middle of the night and called myself in business. When tax time came, I handed my first bookkeeper a shoebox full of receipts.",
@@ -447,6 +508,7 @@
     },
     {
       id: "paycheck", cat: "Paying yourself", priority: 2,
+      video: "",
       title: "No paycheck, just the owner's draw",
       story: [
         "For years I didn't pay myself a paycheck. I took an owner's draw when I needed it and put everything else back into the business, into coaching and growth. Right, wrong or indifferent, that's exactly what I did.",
@@ -460,6 +522,7 @@
     },
     {
       id: "cushion", cat: "Cash flow", priority: 3,
+      video: "",
       title: "No cushion, thin margins",
       story: [
         "Most businesses keep far less than people think. Payroll and marketing eat up a big share of the income, and taxes take a big share of what's left.",
@@ -473,6 +536,7 @@
     },
     {
       id: "onething", cat: "Offer", priority: 4,
+      video: "",
       title: "$60,000 for an 18-minute lesson",
       story: [
         "I joined a mastermind and paid $60,000 in full by bank wire. I learned the lesson that changed everything in about 18 minutes.",
@@ -486,6 +550,7 @@
     },
     {
       id: "list", cat: "Pipeline", priority: 5,
+      video: "",
       title: "No email list",
       story: [
         "For a business like ours, the email list is the pipeline. I didn't treat it that way soon enough.",
@@ -499,6 +564,7 @@
     },
     {
       id: "support", cat: "Team", priority: 6,
+      video: "",
       title: "The $100 gift card",
       story: [
         "Most business owners are under-supported. I had help from the very beginning, but I couldn't pay my first person in cash. I paid her in a gift card. It was literally $100 a week.",
@@ -512,6 +578,7 @@
     },
     {
       id: "counsel", cat: "Leadership", priority: 7,
+      video: "",
       title: "Too many chiefs, no map",
       story: [
         "When you're building something for the first time, you don't know what to look for, so you can't see far enough ahead. There are a lot of considerations you aren't even aware of yet.",
@@ -525,6 +592,7 @@
     },
     {
       id: "automate", cat: "Systems", priority: 8,
+      video: "",
       title: "Three years of manual everything",
       story: [
         "I didn't automate soon enough. For three years I paid for operations that were inefficient.",
@@ -538,6 +606,7 @@
     },
     {
       id: "card", cat: "Money habits", priority: 9,
+      video: "",
       title: "Swiping the wrong card",
       story: [
         "I ran business spending through a debit card and a basic business card instead of a rewards card like an AMEX Platinum. All that ad spend could have been earning points for business travel.",
@@ -580,9 +649,37 @@
       '</span><span class="dots"></span><span class="val">' + val + "</span></div>";
   }
 
-  // Paid link
-  var paid = document.getElementById("paid-link");
-  if (CONFIG.paidUrl) { paid.href = CONFIG.paidUrl; paid.target = "_blank"; paid.rel = "noopener"; }
+  function videoHtml(src, title, tall) {
+    var cls = "video" + (tall ? " tall" : "");
+    var m;
+    if (!src) {
+      return '<div class="' + cls + ' soon" role="img" aria-label="Video coming soon"><span class="play"></span>' +
+        '<span class="v1">' + esc(title) + '</span><span class="v2">Video coming soon</span></div>';
+    }
+    if ((m = src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{6,})/))) {
+      return '<div class="' + cls + '"><iframe src="https://www.youtube-nocookie.com/embed/' + m[1] + '" title="' + esc(title) + '" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
+    }
+    if ((m = src.match(/vimeo\.com\/(?:video\/)?(\d+)/))) {
+      return '<div class="' + cls + '"><iframe src="https://player.vimeo.com/video/' + m[1] + '" title="' + esc(title) + '" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
+    }
+    if ((m = src.match(/loom\.com\/(?:share|embed)\/([\w]+)/))) {
+      return '<div class="' + cls + '"><iframe src="https://www.loom.com/embed/' + m[1] + '" title="' + esc(title) + '" allowfullscreen loading="lazy"></iframe></div>';
+    }
+    return '<div class="' + cls + '"><video controls playsinline preload="metadata" src="' + esc(src) + '" aria-label="' + esc(title) + '"></video></div>';
+  }
+
+  // Quiz links
+  document.querySelectorAll(".quiz-link").forEach(function (a) {
+    if (CONFIG.quizUrl) { a.href = CONFIG.quizUrl; a.target = "_blank"; a.rel = "noopener"; }
+  });
+
+  // Friends
+  document.getElementById("friends").innerHTML = FRIENDS.map(function (f) {
+    var name = f.name || "Seven figure friend";
+    return '<div class="friend">' + videoHtml(f.video, f.name ? name + "'s receipt" : "Their receipt", true) +
+      '<div><div class="who">' + esc(name) + "</div>" + (f.biz ? '<div class="biz">' + esc(f.biz) + "</div>" : "") + "</div>" +
+      (f.lesson ? '<p class="lesson">"' + esc(f.lesson) + '"</p>' : "") + "</div>";
+  }).join("");
 
   // Intake
   var form = document.getElementById("intake");
@@ -615,6 +712,7 @@
     return '<article class="receipt rcard" id="r-' + r.id + '" aria-labelledby="t-' + r.id + '">' +
       '<div class="r-head"><span>Receipt ' + no + '</span><span class="cat">' + esc(r.cat) + "</span></div>" +
       '<h3 id="t-' + r.id + '">' + esc(r.title) + "</h3>" +
+      videoHtml(r.video, "Watch me tell this one", false) +
       '<div class="story">' + r.story.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + "</div>" +
       '<hr class="tear">' +
       '<div class="stack" style="gap:8px"><span class="k">What it cost me</span><div class="lines">' +
@@ -622,7 +720,7 @@
         line(esc(r.total[0]), esc(r.total[1]), "total") +
       "</div></div>" +
       '<div class="know"><div><span class="k">What I know now</span><p>' + esc(r.know) + '</p></div>' +
-      '<div class="fix"><span class="k">The fix</span><p>' + esc(r.fix) + "</p></div></div>" +
+      '<div class="fix"><span class="k">The shift</span><p>' + esc(r.fix) + "</p></div></div>" +
       '<fieldset class="ask"><legend>Is this you?</legend><div class="choices">' +
         CHOICES.map(function (c) {
           var id = "m-" + r.id + "-" + c.v;
@@ -707,9 +805,9 @@
     var top = topThree();
     var topHtml = top.length
       ? '<ol class="top3">' + top.map(function (r) {
-          return "<li><div><b>" + esc(r.fix) + '</b><span class="from">From receipt: ' + esc(r.title) + "</span></div></li>";
+          return "<li><div><b>" + esc(r.title) + '</b><span class="from">' + esc(r.total[0]) + ": " + esc(r.total[1]) + "</span></div></li>";
         }).join("") + "</ol>"
-      : '<p class="empty">Mark the receipts above as "That\'s me" or "Working on it" and your top three fixes appear here.</p>';
+      : '<p class="empty">Mark the receipts above as "That\'s me" or "Working on it" and your biggest receipts appear here.</p>';
 
     var bar = MONEY_MAP.map(function (m) {
       return '<span style="width:' + (m.pct * 100) + "%;background:" + m.color + '" title="' + m.label + '"></span>';
@@ -755,13 +853,16 @@
         line("Cash cushion (" + c.months + " months of expenses)", money(c.cushion), "total") +
       '</div><p class="plan-note">Payroll is due whether sales came in or not. The cushion is what lets you sleep.</p></div>' +
 
-      '<div class="plan-sec"><h4>Fix these first</h4>' + topHtml + "</div>" +
+      '<div class="plan-sec"><h4>Your biggest receipts right now</h4>' + topHtml +
+        '<p class="plan-note">Which one to tackle first depends on your zone. That is what the Starting Line Quiz tells you.</p></div>' +
 
       '<div class="plan-sec infra"><h4>The infrastructure it requires</h4><div class="lines">' +
         RECEIPTS.map(function (r) { return line(esc(r.planLine), status(r.id)); }).join("") +
       "</div></div>" +
 
       '<hr class="tear">' +
+      '<div class="plan-next"><p>This receipt is your diagnosis. Your next step is finding your starting line.</p>' +
+        '<a class="btn primary" ' + (CONFIG.quizUrl ? 'href="' + esc(CONFIG.quizUrl) + '" target="_blank" rel="noopener"' : 'href="#next"') + '>Take the Starting Line Quiz</a></div>' +
       '<p class="thanks">Thank you for your honesty.<br>Keep this receipt.</p>' +
       '<div class="barcode" aria-hidden="true"></div>';
   }
@@ -778,12 +879,12 @@
       "Payroll budget: " + money(c.payroll) + " (" + money(c.monthlyPayroll) + " a month)",
       "Cash cushion goal: " + money(c.cushion),
       "",
-      "Fix these first:"
+      "My biggest receipts right now:"
     ];
     var top = topThree();
-    if (top.length) top.forEach(function (r, i) { out.push((i + 1) + ". " + r.fix); });
+    if (top.length) top.forEach(function (r, i) { out.push((i + 1) + ". " + r.title + " (" + r.total[0] + ": " + r.total[1] + ")"); });
     else out.push("(Mark receipts to see my top three)");
-    out.push("", "From Seven Figure Receipts, School of Content Marketing");
+    out.push("", "Next: the Starting Line Quiz, to find my zone.", "From Seven Figure Receipts, School of Content Marketing");
     return out.join("\n");
   }
 
