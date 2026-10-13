@@ -685,7 +685,7 @@
       return '<div class="' + cls + '"><iframe src="https://www.youtube-nocookie.com/embed/' + m[1] + '" title="' + esc(title) + '" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
     }
     if ((m = src.match(/vimeo\.com\/(?:video\/)?(\d+)/))) {
-      return '<div class="' + cls + '"><iframe src="https://player.vimeo.com/video/' + m[1] + '" title="' + esc(title) + '" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
+      return '<div class="' + cls + '"><iframe src="https://player.vimeo.com/video/' + m[1] + '?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0" title="' + esc(title) + '" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div>';
     }
     if ((m = src.match(/loom\.com\/(?:share|embed)\/([\w]+)/))) {
       return '<div class="' + cls + '"><iframe src="https://www.loom.com/embed/' + m[1] + '" title="' + esc(title) + '" allowfullscreen loading="lazy"></iframe></div>';
