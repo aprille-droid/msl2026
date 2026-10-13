@@ -240,6 +240,12 @@
   .path .next .tag { color: var(--accent); }
   .plan-next { text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; }
   .plan-next p { font-size: 0.92rem; max-width: 46ch; }
+  .paid-stamp {
+    align-self: flex-start; transform: rotate(-4deg);
+    font-family: var(--mono); font-weight: 600; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--s-done); border: 2px solid var(--s-done); border-radius: 4px; padding: 4px 10px; opacity: 0.9;
+  }
+  .rcard.paid .line.total .val { color: var(--s-done); }
   .stamp {
     font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
     padding: 2px 8px; border: 1.5px solid currentColor; border-radius: 3px; white-space: nowrap;
@@ -330,7 +336,7 @@
     <div class="hero-copy">
       <span class="eyebrow">School of Content Marketing · Free members</span>
       <h1>Seven Figure Receipts</h1>
-      <p class="lede">I've built millions in this business, and I kept the receipts on what it cost me. These are nine mistakes I paid for in cash, taxes and time. Mark the ones you're making right now. At the end you get your own 2027 Seven Figure Plan: the sales, the list, the team and the money it would actually take.</p>
+      <p class="lede">I've built millions in this business, and I kept the receipts on what it cost me. Nine of them are mistakes I paid for in cash, taxes and time. The tenth is the one receipt I'd pay again. Mark where you are on each one. At the end you get your own 2027 Seven Figure Plan: the sales, the list, the team and the money it would actually take.</p>
       <p class="sig">Aprille Franks</p>
     </div>
     <aside class="receipt teaser" aria-label="Sample receipt">
@@ -342,7 +348,7 @@
           <div class="line"><span class="label">Mastermind, by wire</span><span class="dots"></span><span class="val">$60,000</span></div>
           <div class="line"><span class="label">Manual operations</span><span class="dots"></span><span class="val">3 YRS</span></div>
           <div class="line"><span class="label">First assistant</span><span class="dots"></span><span class="val">$100/WK</span></div>
-          <div class="line total"><span class="label">Receipts</span><span class="dots"></span><span class="val">9</span></div>
+          <div class="line total"><span class="label">Receipts</span><span class="dots"></span><span class="val">10</span></div>
         </div>
         <div class="barcode" aria-hidden="true"></div>
       </div>
@@ -411,7 +417,7 @@
     <div class="sec-head">
       <span class="eyebrow">Step 2</span>
       <h2 id="receipts-h">My receipts</h2>
-      <p>Every one of these cost me something real. Read them, then be honest about where you are. Your answers decide what goes at the top of your plan.</p>
+      <p>Nine of these cost me something real. The last one paid me back. Read them, then be honest about where you are. Your answers decide what goes at the top of your plan.</p>
     </div>
     <div class="receipts" id="receipts"></div>
   </section>
@@ -553,11 +559,11 @@
       video: "",
       title: "No email list",
       story: [
-        "For a business like ours, the email list is the pipeline. I didn't treat it that way soon enough.",
-        "Without a list, every launch depends on who happens to see a post that day. With one, you have people who raised their hand and are waiting to hear from you."
+        "For a business like ours, the email list is the pipeline. I didn't have one for three years.",
+        "Everything was manual. I didn't have landing pages. I didn't have a CRM. I was too afraid to invest in Infusionsoft at the time, so I kept doing it all by hand instead of building the thing that would bring buyers back to me."
       ],
-      cost: [["Email list", "NONE"], ["Pipeline for launches", "EMPTY"]],
-      total: ["Sales left to chance", "???"],
+      cost: [["Email list", "NONE"], ["Landing pages", "NONE"], ["CRM", "NONE"], ["Investing in Infusionsoft", "TOO SCARED"]],
+      total: ["Without a pipeline", "3 YEARS"],
       know: "Followers are rented. Your email list is owned, and it's where buyers come from.",
       fix: "Give people a reason to join your list every week, and email them consistently. Your plan shows the list size you'd need.",
       planLine: "Email list growth"
@@ -617,6 +623,24 @@
       know: "How you spend matters as much as what you spend. Mixed money makes messy books and costly tax seasons.",
       fix: "One business rewards card for all business spending, including ads, and nothing personal on it. Ever.",
       planLine: "Separate rewards card"
+    },
+    {
+      id: "visible", cat: "Visibility", priority: 4.5, paid: true,
+      video: "",
+      title: "I showed up anyway",
+      story: [
+        "Here's the receipt I'd pay again. While I was making every mistake on this page, I never stopped marketing.",
+        "I went live consistently. I recorded videos consistently. I collaborated with other people and made sure I was visible, even when the back end was a mess. I was building the parachute on the way down, and showing up is what kept me in the air.",
+        "Plenty of people were afraid to show up. I beat them by showing up anyway."
+      ],
+      costLabel: "What I invested",
+      cost: [["Going live", "CONSISTENTLY"], ["Recording videos", "CONSISTENTLY"], ["Collaborating with others", "OFTEN"], ["Waiting until it was perfect", "NEVER"]],
+      total: ["Kept me in business", "PAID IN FULL"],
+      know: "Your systems can be fixed later. Your visibility can't be made up later. The people who show up get the chance to fix their mistakes.",
+      fix: "Stop waiting to be ready. Be visible every week while you build the rest.",
+      planLine: "Relentless visibility",
+      ask: "Where are you on this one?",
+      choices: ["I'm hiding", "Showing up sometimes", "Showing up relentlessly"]
     }
   ];
 
@@ -709,23 +733,24 @@
   var wrap = document.getElementById("receipts");
   wrap.innerHTML = RECEIPTS.map(function (r, i) {
     var no = "No. " + String(i + 1).padStart(3, "0");
-    return '<article class="receipt rcard" id="r-' + r.id + '" aria-labelledby="t-' + r.id + '">' +
+    return '<article class="receipt rcard' + (r.paid ? " paid" : "") + '" id="r-' + r.id + '" aria-labelledby="t-' + r.id + '">' +
       '<div class="r-head"><span>Receipt ' + no + '</span><span class="cat">' + esc(r.cat) + "</span></div>" +
+      (r.paid ? '<span class="paid-stamp" aria-hidden="true">Paid in full</span>' : "") +
       '<h3 id="t-' + r.id + '">' + esc(r.title) + "</h3>" +
       videoHtml(r.video, "Watch me tell this one", false) +
       '<div class="story">' + r.story.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + "</div>" +
       '<hr class="tear">' +
-      '<div class="stack" style="gap:8px"><span class="k">What it cost me</span><div class="lines">' +
+      '<div class="stack" style="gap:8px"><span class="k">' + esc(r.costLabel || "What it cost me") + '</span><div class="lines">' +
         r.cost.map(function (c) { return line(esc(c[0]), esc(c[1])); }).join("") +
         line(esc(r.total[0]), esc(r.total[1]), "total") +
       "</div></div>" +
       '<div class="know"><div><span class="k">What I know now</span><p>' + esc(r.know) + '</p></div>' +
       '<div class="fix"><span class="k">The shift</span><p>' + esc(r.fix) + "</p></div></div>" +
-      '<fieldset class="ask"><legend>Is this you?</legend><div class="choices">' +
-        CHOICES.map(function (c) {
+      '<fieldset class="ask"><legend>' + esc(r.ask || "Is this you?") + '</legend><div class="choices">' +
+        CHOICES.map(function (c, ci) {
           var id = "m-" + r.id + "-" + c.v;
           return '<label class="choice ' + c.cls + '" for="' + id + '"><input type="radio" id="' + id + '" name="m-' + r.id +
-            '" value="' + c.v + '"' + (state.marks[r.id] === c.v ? " checked" : "") + "><span>" + c.label + "</span></label>";
+            '" value="' + c.v + '"' + (state.marks[r.id] === c.v ? " checked" : "") + "><span>" + esc(r.choices ? r.choices[ci] : c.label) + "</span></label>";
         }).join("") +
       "</div></fieldset>" +
     "</article>";
