@@ -213,6 +213,8 @@
   /* Video slots. The frame is warm black in both themes so it reads as a screen, never a blue panel. */
   .video { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #1b1719; border-radius: 4px; overflow: hidden; }
   .video.tall { aspect-ratio: 9 / 16; }
+  .vwrap { display: flex; flex-direction: column; gap: 6px; }
+  .vlink { align-self: flex-end; font-family: var(--mono); font-size: 12px; color: var(--accent); }
   .video iframe, .video video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background: #1b1719; }
   .video.soon { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #f4eef2; text-align: center; padding: 16px; }
   .video.soon .play { width: 54px; height: 54px; border-radius: 50%; background: #e91e8c; display: grid; place-items: center; }
@@ -500,7 +502,7 @@
   var RECEIPTS = [
     {
       id: "shoebox", cat: "Taxes", priority: 1,
-      video: "",
+      video: "https://vimeo.com/1235582724",
       title: "The shoebox of receipts",
       story: [
         "I started the way a lot of us do. I formed an LLC online in the middle of the night and called myself in business. When tax time came, I handed my first bookkeeper a shoebox full of receipts.",
@@ -514,7 +516,7 @@
     },
     {
       id: "paycheck", cat: "Paying yourself", priority: 2,
-      video: "",
+      video: "https://vimeo.com/1235578553",
       title: "No paycheck, just the owner's draw",
       story: [
         "For the first three years of my business, I didn't pay myself a paycheck. I knew I should have been. But growing the business felt more important, so I took an owner's draw when I needed it and put everything else back into coaching and growth. Right, wrong or indifferent, that's exactly what I did.",
@@ -529,7 +531,7 @@
     },
     {
       id: "cushion", cat: "Cash flow", priority: 3,
-      video: "",
+      video: "https://vimeo.com/1235582729",
       title: "No cushion, thin margins",
       story: [
         "Most businesses keep far less than people think. Payroll and marketing eat up a big share of the income, and taxes take a big share of what's left.",
@@ -543,7 +545,7 @@
     },
     {
       id: "onething", cat: "Offer", priority: 4,
-      video: "",
+      video: "https://vimeo.com/1235584834",
       title: "$60,000 for an 18-minute lesson",
       story: [
         "In 2021, I joined a mastermind and paid $60,000 in full by bank wire. I learned the lesson that changed everything in about 18 minutes. That mastermind doesn't even exist anymore. The lesson does.",
@@ -557,7 +559,7 @@
     },
     {
       id: "list", cat: "Pipeline", priority: 5,
-      video: "",
+      video: "https://vimeo.com/1235582723",
       title: "No email list",
       story: [
         "For a business like ours, the email list is the pipeline. I didn't have one for three years.",
@@ -571,7 +573,7 @@
     },
     {
       id: "support", cat: "Team", priority: 6,
-      video: "",
+      video: "https://vimeo.com/1235594966",
       title: "The $100 gift card",
       story: [
         "Most business owners are under-supported. I had help from the very beginning, but I couldn't pay my first person in cash. I paid her in a gift card. It was literally $100 a week.",
@@ -585,7 +587,7 @@
     },
     {
       id: "counsel", cat: "Leadership", priority: 7,
-      video: "",
+      video: "https://vimeo.com/1235584932",
       title: "Too many chiefs, no map",
       story: [
         "When you're building something for the first time, you don't know what to look for, so you can't see far enough ahead. There are a lot of considerations you aren't even aware of yet.",
@@ -599,7 +601,7 @@
     },
     {
       id: "office", cat: "Overhead", priority: 8,
-      video: "",
+      video: "https://vimeo.com/1235589236",
       title: "The $8,000-a-month office in Vegas",
       story: [
         "During the pandemic, I had an office in Vegas. It was great, and at one point it was full of people. It also cost me over $8,000 a month to maintain, which made it a six-figure expense.",
@@ -613,7 +615,7 @@
     },
     {
       id: "card", cat: "Money habits", priority: 9,
-      video: "",
+      video: "https://vimeo.com/1235597600",
       title: "Swiping the wrong card",
       story: [
         "I ran business spending through a debit card and a basic business card instead of a rewards card like an AMEX Platinum. All that ad spend could have been earning points for business travel.",
@@ -627,7 +629,7 @@
     },
     {
       id: "visible", cat: "Visibility", priority: 4.5, paid: true,
-      video: "",
+      video: "https://vimeo.com/1235582725",
       title: "I showed up anyway",
       story: [
         "Here's the receipt I'd pay again. While I was making every mistake on this page, I never stopped marketing.",
@@ -685,7 +687,8 @@
       return '<div class="' + cls + '"><iframe src="https://www.youtube-nocookie.com/embed/' + m[1] + '" title="' + esc(title) + '" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
     }
     if ((m = src.match(/vimeo\.com\/(?:video\/)?(\d+)/))) {
-      return '<div class="' + cls + '"><iframe src="https://player.vimeo.com/video/' + m[1] + '" title="' + esc(title) + '" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
+      return '<div class="vwrap"><div class="' + cls + '"><iframe src="https://player.vimeo.com/video/' + m[1] + '" title="' + esc(title) + '" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>' +
+        '<a class="vlink" href="https://vimeo.com/' + m[1] + '" target="_blank" rel="noopener">Video not playing? Watch on Vimeo</a></div>';
     }
     if ((m = src.match(/loom\.com\/(?:share|embed)\/([\w]+)/))) {
       return '<div class="' + cls + '"><iframe src="https://www.loom.com/embed/' + m[1] + '" title="' + esc(title) + '" allowfullscreen loading="lazy"></iframe></div>';
