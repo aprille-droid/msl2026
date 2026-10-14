@@ -25,6 +25,9 @@
     --s-need: #b42318;
     --s-work: #9a5b00;
     --s-done: #127860;
+    --ask-bg: #fff4c4;
+    --ask-line: #e6b422;
+    --star: #d99a00;
     --display: "Montserrat", "Helvetica Neue", Arial, sans-serif;
     --body: "Montserrat", "Helvetica Neue", Arial, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -35,6 +38,7 @@
       --accent: #ff6cb8; --accent-strong: #e91e8c; --purple: #d1a6ec; --rule: #45393f; --chip: #2e252c;
       --on-accent: #ffffff; --shadow: rgba(0, 0, 0, 0.5);
       --s-need: #ff8a80; --s-work: #f5b85a; --s-done: #5fd3b2;
+      --ask-bg: #3a3116; --ask-line: #c99a1e; --star: #f5c542;
       color-scheme: dark;
     }
   }
@@ -43,6 +47,7 @@
     --accent: #ff6cb8; --accent-strong: #e91e8c; --purple: #d1a6ec; --rule: #45393f; --chip: #2e252c;
     --on-accent: #ffffff; --shadow: rgba(0, 0, 0, 0.5);
     --s-need: #ff8a80; --s-work: #f5b85a; --s-done: #5fd3b2;
+    --ask-bg: #3a3116; --ask-line: #c99a1e; --star: #f5c542;
     color-scheme: dark;
   }
 
@@ -191,8 +196,15 @@
   .know > div { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
   .fix { background: var(--chip); padding: 14px 16px; border-radius: 4px; }
   .fix .k { color: var(--purple); }
-  .ask { display: flex; flex-direction: column; gap: 10px; }
-  .ask legend { font-weight: 700; color: var(--navy); padding: 0; margin-bottom: 10px; }
+  .ask { display: flex; flex-direction: column; gap: 10px; background: var(--ask-bg); border: 2px solid var(--ask-line); border-radius: 6px; padding: 16px; transition: background-color .3s, border-color .3s; }
+  .ask legend { float: left; width: 100%; display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.08rem; color: var(--navy); padding: 0; margin-bottom: 12px; }
+  .ask legend + * { clear: both; }
+  .ask .star { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--star); color: #ffffff; font-size: 17px; line-height: 1; animation: starPulse 1.8s ease-in-out infinite; }
+  .ask .hint-tag { margin-left: auto; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .ask.answered { background: transparent; border-color: var(--rule); }
+  .ask.answered .star { animation: none; background: var(--s-done); }
+  .ask.answered .hint-tag { visibility: hidden; }
+  @keyframes starPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 154, 0, 0.45); } 50% { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(217, 154, 0, 0); } }
   fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
   .choices { display: flex; flex-wrap: wrap; gap: 8px; }
   .choice { position: relative; }
@@ -334,6 +346,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
+    .ask .star { animation: none; }
     .teaser { transform: none; }
   }
 </style>
@@ -654,7 +667,7 @@
       know: "Your systems can be fixed later. Your visibility can't be made up later. The people who show up get the chance to fix their mistakes.",
       fix: "Stop waiting to be ready. Be visible every week while you build the rest.",
       planLine: "Relentless visibility",
-      ask: "Where are you on this one?",
+      ask: "Which is most true for you on this one?",
       choices: ["I'm hiding", "Showing up sometimes", "Showing up relentlessly"]
     }
   ];
@@ -772,7 +785,7 @@
       "</div></div>" +
       '<div class="know"><div><span class="k">What I know now</span><p>' + esc(r.know) + '</p></div>' +
       '<div class="fix"><span class="k">What this means for you</span><p>' + esc(r.fix) + "</p></div></div>" +
-      '<fieldset class="ask"><legend>' + esc(r.ask || "Is this you?") + '</legend><div class="choices">' +
+      '<fieldset class="ask' + (state.marks[r.id] ? " answered" : "") + '"><legend><span class="star" aria-hidden="true">&#9733;</span><span>' + esc(r.ask || "Which is most true for you?") + '</span><span class="hint-tag">Tap one</span></legend><div class="choices">' +
         CHOICES.map(function (c, ci) {
           var id = "m-" + r.id + "-" + c.v;
           return '<label class="choice ' + c.cls + '" for="' + id + '"><input type="radio" id="' + id + '" name="m-' + r.id +
@@ -786,6 +799,7 @@
     var t = e.target;
     if (t.type !== "radio") return;
     state.marks[t.name.slice(2)] = t.value;
+    var fs = t.closest(".ask"); if (fs) fs.classList.add("answered");
     save();
     renderPlan();
     renderProgress();
@@ -972,6 +986,7 @@
     save();
     Object.keys(DEFAULTS).forEach(function (k) { if (form.elements[k]) form.elements[k].value = DEFAULTS[k]; });
     wrap.querySelectorAll("input[type=radio]").forEach(function (r) { r.checked = false; });
+    wrap.querySelectorAll(".ask").forEach(function (f) { f.classList.remove("answered"); });
     syncNote();
     renderPlan();
     renderProgress();
