@@ -93,6 +93,7 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  .brand img { display: block; width: min(280px, 70vw); height: auto; }
   .lede { font-size: 1.05rem; color: var(--ink); max-width: 60ch; }
   .gets { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .gets li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-weight: 500; }
@@ -358,7 +359,10 @@
 
   <header class="hero">
     <div class="hero-copy">
-      <span class="eyebrow">School of Content Marketing</span>
+      <picture class="brand">
+        <source srcset="socm-logo-white.png" media="(prefers-color-scheme: dark)">
+        <img src="socm-logo-gradient.png" alt="The School of Content Marketing" width="900" height="259">
+      </picture>
       <h1>7-Figure Receipts</h1>
       <p class="lede">I paid for these lessons so you don't have to. Over 16 years, I've built millions in this business, and I kept the receipts on what it cost me in cash, taxes and time. Go through them with your own business in mind, and you'll see the mistakes before they cost you, not after.</p>
       <ul class="gets" aria-label="What you walk away with">
