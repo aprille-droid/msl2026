@@ -480,17 +480,15 @@
 <script>
 (function () {
   // Replace with the real Starting Line Quiz link.
-  var CONFIG = { quizUrl: "" };
+  var CONFIG = { quizUrl: "https://thestartinglinesocm.netlify.app/" };
 
   // Video links: paste a YouTube, Vimeo or Loom link, or a direct .mp4 link. Leave "" to show "Video coming soon".
   // Seven figure friends: fill in name, business, their one-line lesson and video link. Empty slots show as coming soon.
   var FRIENDS = [
     { name: "Bret Johnson", biz: "Manages Chalene Johnson's brand", lesson: "What is the one thing that makes no sense for you to be doing?", video: "https://vimeo.com/1235601292" },
-    { name: "", biz: "", lesson: "", video: "" },
-    { name: "", biz: "", lesson: "", video: "" },
-    { name: "", biz: "", lesson: "", video: "" },
-    { name: "", biz: "", lesson: "", video: "" },
-    { name: "", biz: "", lesson: "", video: "" }
+    // "opens" is the date the next friend's video unlocks (year-month-day). The card counts down to it.
+    { name: "", biz: "", lesson: "", video: "", opens: "2026-10-19" },
+    { name: "", biz: "", lesson: "", video: "", opens: "2026-10-24" }
   ];
 
   var GOAL = 1000000;
@@ -703,11 +701,22 @@
 
   // Quiz links
   document.querySelectorAll(".quiz-link").forEach(function (a) {
-    if (CONFIG.quizUrl) { a.href = CONFIG.quizUrl; a.target = "_blank"; a.rel = "noopener"; }
+    if (CONFIG.quizUrl) { a.href = CONFIG.quizUrl; }
   });
 
   // Friends
   document.getElementById("friends").innerHTML = FRIENDS.map(function (f) {
+    if (!f.video && f.opens) {
+      var parts = f.opens.split("-");
+      var openDate = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+      var now = new Date(); now.setHours(0, 0, 0, 0);
+      var days = Math.round((openDate - now) / 86400000);
+      var when = days > 1 ? "Opens in " + days + " days" : days === 1 ? "Opens tomorrow" : "Opening soon";
+      var dateLabel = openDate.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      return '<div class="friend"><div class="video tall soon" role="img" aria-label="' + esc(when) + '">' +
+        '<span class="v1">' + esc(when) + '</span><span class="v2">Unlocks ' + esc(dateLabel) + "</span></div>" +
+        '<div><div class="who">Next seven figure friend</div><div class="biz">Their receipt drops ' + esc(dateLabel) + "</div></div></div>";
+    }
     var name = f.name || "Seven figure friend";
     return '<div class="friend">' + videoHtml(f.video, f.name ? name + "'s receipt" : "Their receipt", true) +
       '<div><div class="who">' + esc(name) + "</div>" + (f.biz ? '<div class="biz">' + esc(f.biz) + "</div>" : "") + "</div>" +
@@ -896,7 +905,7 @@
 
       '<hr class="tear">' +
       '<div class="plan-next"><p>This receipt is your diagnosis. Your next step is finding your starting line.</p>' +
-        '<a class="btn primary" ' + (CONFIG.quizUrl ? 'href="' + esc(CONFIG.quizUrl) + '" target="_blank" rel="noopener"' : 'href="#next"') + '>Take the Starting Line Quiz</a></div>' +
+        '<a class="btn primary" ' + (CONFIG.quizUrl ? 'href="' + esc(CONFIG.quizUrl) + '"' : 'href="#next"') + '>Take the Starting Line Quiz</a></div>' +
       '<p class="thanks">Thank you for your honesty.<br>Keep this receipt.</p>' +
       '<div class="barcode" aria-hidden="true"></div>';
   }
