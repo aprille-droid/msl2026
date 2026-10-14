@@ -89,6 +89,9 @@
     -webkit-text-fill-color: transparent;
   }
   .lede { font-size: 1.05rem; color: var(--ink); max-width: 60ch; }
+  .gets { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .gets li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-weight: 500; }
+  .gets li::before { content: ""; width: 10px; height: 10px; margin-top: 8px; border-radius: 50%; background: var(--accent-strong); }
   .sig { font-style: italic; font-weight: 500; color: var(--muted); }
 
   /* Receipt paper */
@@ -342,9 +345,14 @@
 
   <header class="hero">
     <div class="hero-copy">
-      <span class="eyebrow">School of Content Marketing · Free members</span>
+      <span class="eyebrow">School of Content Marketing</span>
       <h1>Seven Figure Receipts</h1>
-      <p class="lede">I've built millions in this business, and I kept the receipts on what it cost me. Nine of them are mistakes I paid for in cash, taxes and time. The tenth is the one receipt I'd pay again. Mark where you are on each one. At the end you get your own 2027 Seven Figure Plan: the sales, the list, the team and the money it would actually take.</p>
+      <p class="lede">I paid for these lessons so you don't have to. I've built millions in this business, and I kept the receipts on what it cost me in cash, taxes and time. Go through them with your own business in mind, and you'll see the mistakes before they cost you, not after.</p>
+      <ul class="gets" aria-label="What you walk away with">
+        <li>See which of my receipts you're already paying for</li>
+        <li>Find where your business is leaking money and momentum</li>
+        <li>Leave with your own 2027 Seven Figure Plan: the sales, the list, the team and the money it takes</li>
+      </ul>
       <p class="sig">Aprille Franks</p>
     </div>
     <aside class="receipt teaser" aria-label="Sample receipt">
@@ -365,7 +373,7 @@
 
   <ol class="steps" aria-label="How it works">
     <li><strong>Add your numbers</strong><span>Revenue, offer price, list and team. Two minutes.</span></li>
-    <li><strong>Read my receipts</strong><span>Mark each one: that's me, working on it, or handled.</span></li>
+    <li><strong>Check yourself against my receipts</strong><span>Mark each one: that's me, working on it, or handled.</span></li>
     <li><strong>Get your 2027 plan</strong><span>Your seven figure receipt builds as you go.</span></li>
   </ol>
 
@@ -424,8 +432,8 @@
   <section class="stack" aria-labelledby="receipts-h">
     <div class="sec-head">
       <span class="eyebrow">Step 2</span>
-      <h2 id="receipts-h">My receipts</h2>
-      <p>Nine of these cost me something real. The last one paid me back. Read them, then be honest about where you are. Your answers decide what goes at the top of your plan.</p>
+      <h2 id="receipts-h">My receipts, your shortcut</h2>
+      <p>Nine of these cost me something real. The last one paid me back. You get every lesson without the bill. Read each one with your business in mind, be honest about where you are, and your answers build your plan.</p>
     </div>
     <div class="receipts" id="receipts"></div>
   </section>
@@ -487,8 +495,8 @@
   var FRIENDS = [
     { name: "Bret Johnson", biz: "Manages Chalene Johnson's brand", lesson: "What is the one thing that makes no sense for you to be doing?", video: "https://vimeo.com/1235601292" },
     // "opens" is the date the next friend's video unlocks (year-month-day). The card counts down to it.
-    { name: "", biz: "", lesson: "", video: "", opens: "2026-10-19" },
-    { name: "", biz: "", lesson: "", video: "", opens: "2026-10-24" }
+    { name: "", biz: "", lesson: "", video: "", opens: "2026-10-21" },
+    { name: "", biz: "", lesson: "", video: "", opens: "2026-10-26" }
   ];
 
   var GOAL = 1000000;
@@ -763,7 +771,7 @@
         line(esc(r.total[0]), esc(r.total[1]), "total") +
       "</div></div>" +
       '<div class="know"><div><span class="k">What I know now</span><p>' + esc(r.know) + '</p></div>' +
-      '<div class="fix"><span class="k">The shift</span><p>' + esc(r.fix) + "</p></div></div>" +
+      '<div class="fix"><span class="k">What this means for you</span><p>' + esc(r.fix) + "</p></div></div>" +
       '<fieldset class="ask"><legend>' + esc(r.ask || "Is this you?") + '</legend><div class="choices">' +
         CHOICES.map(function (c, ci) {
           var id = "m-" + r.id + "-" + c.v;
